@@ -1,0 +1,27 @@
+# Backend ignore
+BankSystem_Back/.vs
+BankSystem_Back/**/bin/
+BankSystem_Back/**/obj/
+BankSystem_Back/**/*.user
+BankSystem_Back/**/*.suo
+BankSystem_Back/**/*.ruser
+BankSystem_Back/**/*.cache
+BankSystem_Back/**/*.log
+
+#Frontend ignore
+BankSystemUI/dist
+BankSystemUI/tmp
+BankSystemUI/out-tsc
+BankSystemUI/node_modules
+BankSystemUI/.angular/cache/
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+*.DS_Store
+Thumbs.db
