@@ -7,6 +7,7 @@ BankSystem_Back/**/*.suo
 BankSystem_Back/**/*.ruser
 BankSystem_Back/**/*.cache
 BankSystem_Back/**/*.log
+BankSystem_Back/**/appsettings.Development.json
 
 #Frontend ignore
 BankSystemUI/dist
