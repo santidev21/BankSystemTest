@@ -11,7 +11,7 @@ namespace BankSystem.Application.Interfaces
     {
         Task AddAsync(Cuenta cuenta);
         Task UpdateAsync(Cuenta cuenta);
-        Task DeleteAsync(Cuenta cuenta);
+        Task DeleteAsync(int id);
         Task<Cuenta> GetByIdAsync(int id);
         Task<IList<Cuenta>> GetAllAsync();
 

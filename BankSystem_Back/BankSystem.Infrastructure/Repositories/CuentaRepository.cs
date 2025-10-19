@@ -1,6 +1,7 @@
 ﻿using BankSystem.Application.Interfaces;
 using BankSystem.Domain.Entities;
 using BankSystem.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,29 +18,38 @@ namespace BankSystem.Infrastructure.Repositories
             _context = context;
         }
 
-        public Task AddAsync(Cuenta cuenta)
+        public async Task AddAsync(Cuenta cuenta)
         {
-            throw new NotImplementedException();
+            await _context.AddAsync(cuenta);
+            await _context.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(Cuenta cuenta)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var cuenta = await _context.Cuentas.FindAsync(id);
+            if(cuenta != null)
+            {
+                _context.Remove(cuenta);
+                await _context.SaveChangesAsync();
+            }
         }
 
-        public Task<IList<Cuenta>> GetAllAsync()
+        public async Task<IList<Cuenta>> GetAllAsync()
         {
-            throw new NotImplementedException();
+
+            return await _context.Cuentas.Include(C => C.Cliente).ToListAsync();
         }
 
-        public Task<Cuenta> GetByIdAsync(int id)
+        public async Task<Cuenta> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+
+            return await _context.Cuentas.Include(C => C.Cliente).FirstOrDefaultAsync(c => c.CuentaId == id);
         }
 
-        public Task UpdateAsync(Cuenta cuenta)
+        public async Task UpdateAsync(Cuenta cuenta)
         {
-            throw new NotImplementedException();
+            _context.Cuentas.Update(cuenta);
+            await _context.SaveChangesAsync();
         }
     }
 }

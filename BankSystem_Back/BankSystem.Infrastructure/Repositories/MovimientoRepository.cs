@@ -1,6 +1,7 @@
 ﻿using BankSystem.Application.Interfaces;
 using BankSystem.Domain.Entities;
 using BankSystem.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,34 +18,27 @@ namespace BankSystem.Infrastructure.Repositories
             _context = context;
         }
 
-        public Task AddAsync(Movimiento movimiento)
+        public async Task AddAsync(Movimiento movimiento)
         {
-            throw new NotImplementedException();
+            await _context.Movimientos.AddAsync(movimiento);
+            await _context.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(Movimiento movimiento)
+        public async Task<IList<Movimiento>> GetAllByCuentaIdAsync(int cuentaId)
         {
-            throw new NotImplementedException();
+            return await _context.Movimientos.Where(mov => mov.CuentaId == cuentaId).ToListAsync();
         }
 
-        public Task<IList<Movimiento>> GetAllByCuentaIdAsync(int cuentaId)
+        public async Task<Movimiento> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Movimientos.FindAsync(id);
         }
 
-        public Task<Movimiento> GetByIdAsync(int id)
+        public async Task<IList<Movimiento>> GetByRangoFechaAsync(int cuentaId, DateTime limiteInferior, DateTime limiteSuperior)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<IList<Movimiento>> GetByRangoFechaAsync(int cuentaId, DateTime limiteInferior, DateTime limiteSuperior)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateAsync(Movimiento movimiento)
-        {
-            throw new NotImplementedException();
+            return await _context.Movimientos
+                .Where(mov => mov.CuentaId == cuentaId && mov.Fecha >= limiteInferior && mov.Fecha <= limiteSuperior)
+                .ToListAsync();
         }
     }
 }

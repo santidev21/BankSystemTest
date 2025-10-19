@@ -1,6 +1,7 @@
 ﻿using BankSystem.Application.Interfaces;
 using BankSystem.Domain.Entities;
 using BankSystem.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,29 +18,36 @@ namespace BankSystem.Infrastructure.Repositories
             _context = context;
         }
 
-        public Task AddAsync(Cliente cliente)
+        public async Task AddAsync(Cliente cliente)
         {
-            throw new NotImplementedException();
+            await _context.Clientes.AddAsync(cliente);
+            await _context.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(Cliente cliente)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var cliente = await _context.Clientes.FindAsync(id);
+            if(cliente != null)
+            {
+                _context.Clientes.Remove(cliente);
+                await _context.SaveChangesAsync();
+            }
         }
 
-        public Task<IList<Cliente>> GetAllAsync()
+        public async Task<IList<Cliente>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Clientes.ToListAsync();
         }
 
-        public Task<Cliente> GetByIdAsync(int id)
+        public async Task<Cliente> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Clientes.FindAsync(id);
         }
 
-        public Task UpdateAsync(Cliente cliente)
+        public async Task UpdateAsync(Cliente cliente)
         {
-            throw new NotImplementedException();
+            _context.Clientes.Update(cliente);
+            await _context.SaveChangesAsync();
         }
     }
 }

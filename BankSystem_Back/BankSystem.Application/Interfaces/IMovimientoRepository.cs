@@ -10,8 +10,6 @@ namespace BankSystem.Application.Interfaces
     public interface IMovimientoRepository
     {
         Task AddAsync(Movimiento movimiento);
-        Task UpdateAsync(Movimiento movimiento);
-        Task DeleteAsync(Movimiento movimiento);
         Task<Movimiento> GetByIdAsync(int id);
         Task<IList<Movimiento>> GetAllByCuentaIdAsync(int cuentaId);
         Task<IList<Movimiento>> GetByRangoFechaAsync(int cuentaId, DateTime limiteInferior, DateTime limiteSuperior);
