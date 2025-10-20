@@ -30,13 +30,13 @@ namespace BankSystem.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CuentaId"));
 
-                    b.Property<int>("ClienteId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("Estado")
                         .HasColumnType("bit");
 
                     b.Property<int>("NumeroCuenta")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PersonaId")
                         .HasColumnType("int");
 
                     b.Property<int>("SaldoInicial")
@@ -48,10 +48,10 @@ namespace BankSystem.Infrastructure.Migrations
 
                     b.HasKey("CuentaId");
 
-                    b.HasIndex("ClienteId");
-
                     b.HasIndex("NumeroCuenta")
                         .IsUnique();
+
+                    b.HasIndex("PersonaId");
 
                     b.ToTable("Cuentas");
                 });
@@ -134,9 +134,6 @@ namespace BankSystem.Infrastructure.Migrations
                 {
                     b.HasBaseType("BankSystem.Domain.Entities.Persona");
 
-                    b.Property<int>("ClienteId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Contraseña")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -151,7 +148,7 @@ namespace BankSystem.Infrastructure.Migrations
                 {
                     b.HasOne("BankSystem.Domain.Entities.Cliente", "Cliente")
                         .WithMany("Cuentas")
-                        .HasForeignKey("ClienteId")
+                        .HasForeignKey("PersonaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

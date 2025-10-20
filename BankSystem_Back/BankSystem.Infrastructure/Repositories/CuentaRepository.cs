@@ -1,4 +1,5 @@
 ﻿using BankSystem.Application.Interfaces;
+using BankSystem.Domain.Constants;
 using BankSystem.Domain.Entities;
 using BankSystem.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -50,6 +51,16 @@ namespace BankSystem.Infrastructure.Repositories
         {
             _context.Cuentas.Update(cuenta);
             await _context.SaveChangesAsync();
+        }
+        
+        public async Task<decimal> GetBalanceAsync(int id)
+        {
+            var movimientos = await _context.Movimientos.Where(mov => mov.CuentaId == id).ToListAsync();
+            var creditosTotales = movimientos.Where(mov => mov.Tipo == CuentasRules.credito).Sum(mov => mov.Valor);
+            var debitosTotales = movimientos.Where(mov => mov.Tipo == CuentasRules.debito).Sum(mov => mov.Valor);
+
+            return creditosTotales - debitosTotales;
+
         }
     }
 }

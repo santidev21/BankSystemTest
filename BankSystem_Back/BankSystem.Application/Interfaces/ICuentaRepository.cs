@@ -14,6 +14,7 @@ namespace BankSystem.Application.Interfaces
         Task DeleteAsync(int id);
         Task<Cuenta> GetByIdAsync(int id);
         Task<IList<Cuenta>> GetAllAsync();
+        Task<decimal> GetBalanceAsync(int id);
 
     }
 }

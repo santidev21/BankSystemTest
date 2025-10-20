@@ -14,7 +14,7 @@ namespace BankSystem.Domain.Entities
         public int SaldoInicial { get; set; }
         public bool Estado { get; set; }
 
-        public int ClienteId {  get; set; }
+        public int PersonaId {  get; set; }
         public Cliente Cliente { get; set; }
 
         public IList<Movimiento> Movimientos { get; set; }

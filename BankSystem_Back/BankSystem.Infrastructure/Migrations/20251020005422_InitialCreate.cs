@@ -24,7 +24,6 @@ namespace BankSystem.Infrastructure.Migrations
                     Direccion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Telefono = table.Column<int>(type: "int", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
-                    ClienteId = table.Column<int>(type: "int", nullable: true),
                     Contraseña = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Estado = table.Column<bool>(type: "bit", nullable: true)
                 },
@@ -43,14 +42,14 @@ namespace BankSystem.Infrastructure.Migrations
                     Tipo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SaldoInicial = table.Column<int>(type: "int", nullable: false),
                     Estado = table.Column<bool>(type: "bit", nullable: false),
-                    ClienteId = table.Column<int>(type: "int", nullable: false)
+                    PersonaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cuentas", x => x.CuentaId);
                     table.ForeignKey(
-                        name: "FK_Cuentas_Personas_ClienteId",
-                        column: x => x.ClienteId,
+                        name: "FK_Cuentas_Personas_PersonaId",
+                        column: x => x.PersonaId,
                         principalTable: "Personas",
                         principalColumn: "PersonaId",
                         onDelete: ReferentialAction.Cascade);
@@ -80,15 +79,15 @@ namespace BankSystem.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cuentas_ClienteId",
-                table: "Cuentas",
-                column: "ClienteId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Cuentas_NumeroCuenta",
                 table: "Cuentas",
                 column: "NumeroCuenta",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cuentas_PersonaId",
+                table: "Cuentas",
+                column: "PersonaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Movimientos_CuentaId",

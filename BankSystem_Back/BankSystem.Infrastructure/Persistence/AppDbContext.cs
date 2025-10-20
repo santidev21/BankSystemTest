@@ -19,7 +19,7 @@ namespace BankSystem.Infrastructure.Persistence
             modelBuilder.Entity<Cliente>()
                 .HasMany(c => c.Cuentas)
                 .WithOne(c => c.Cliente)
-                .HasForeignKey(c => c.ClienteId);
+                .HasForeignKey(c => c.PersonaId);
 
             modelBuilder.Entity<Cuenta>()
                 .HasMany(c => c.Movimientos)

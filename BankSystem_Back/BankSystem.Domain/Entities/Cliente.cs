@@ -8,7 +8,6 @@ namespace BankSystem.Domain.Entities
 {
     public class Cliente : Persona
     {
-        public int ClienteId { get; set; }
         public string Contraseña { get; set; }
         public bool Estado { get; set; }
         public IList<Cuenta> Cuentas { get; set; } = new List<Cuenta>();
