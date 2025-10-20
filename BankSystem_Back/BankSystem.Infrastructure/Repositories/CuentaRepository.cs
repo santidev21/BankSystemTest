@@ -1,4 +1,5 @@
-﻿using BankSystem.Application.Interfaces;
+﻿using BankSystem.Application.DTOs.Cuentas;
+using BankSystem.Application.Interfaces;
 using BankSystem.Domain.Constants;
 using BankSystem.Domain.Entities;
 using BankSystem.Infrastructure.Persistence;
@@ -19,9 +20,18 @@ namespace BankSystem.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task AddAsync(Cuenta cuenta)
+        public async Task AddAsync(CrearCuentaDTO cuenta)
         {
-            await _context.AddAsync(cuenta);
+            var nuevaCuenta = new Cuenta
+            {
+                NumeroCuenta = cuenta.NumeroCuenta,
+                Tipo = cuenta.Tipo,
+                SaldoInicial = cuenta.SaldoInicial,
+                Estado = cuenta.Estado,
+                PersonaId = cuenta.PersonaId,
+            };
+
+            await _context.AddAsync(nuevaCuenta);
             await _context.SaveChangesAsync();
         }
 
@@ -35,21 +45,56 @@ namespace BankSystem.Infrastructure.Repositories
             }
         }
 
-        public async Task<IList<Cuenta>> GetAllAsync()
+        public async Task<IList<CuentasDTO>> GetAllAsync()
         {
 
-            return await _context.Cuentas.Include(C => C.Cliente).ToListAsync();
+            return await _context.Cuentas.Include(C => C.Cliente)
+                .Select(c => new CuentasDTO
+                {
+                    CuentaId = c.CuentaId,
+                    NumeroCuenta = c.NumeroCuenta,
+                    Tipo = c.Tipo,
+                    SaldoInicial = c.SaldoInicial,
+                    Estado = c.Estado,
+                    NombreCliente = c.Cliente.Nombre,
+                    PersonaId = c.Cliente.PersonaId
+
+                }).ToListAsync();
         }
 
-        public async Task<Cuenta> GetByIdAsync(int id)
+        public async Task<CuentasDTO> GetByIdAsync(int id)
         {
 
-            return await _context.Cuentas.Include(C => C.Cliente).FirstOrDefaultAsync(c => c.CuentaId == id);
+            var cuenta = await _context.Cuentas.Include(C => C.Cliente).FirstOrDefaultAsync(c => c.CuentaId == id);
+            if (cuenta == null)
+                return null;
+
+            return new CuentasDTO
+            {
+                CuentaId = cuenta.CuentaId,
+                NumeroCuenta = cuenta.NumeroCuenta,
+                Tipo = cuenta.Tipo,
+                SaldoInicial = cuenta.SaldoInicial,
+                Estado = cuenta.Estado,
+                NombreCliente = cuenta.Cliente.Nombre,
+                PersonaId = cuenta.Cliente.PersonaId
+            };
+            
         }
 
-        public async Task UpdateAsync(Cuenta cuenta)
+        public async Task UpdateAsync(CuentasDTO cuenta)
         {
-            _context.Cuentas.Update(cuenta);
+            var cuentaActualizada = new Cuenta
+            {
+                CuentaId = cuenta.CuentaId,
+                NumeroCuenta = cuenta.NumeroCuenta,
+                Tipo = cuenta.Tipo,
+                SaldoInicial = cuenta.SaldoInicial,
+                Estado = cuenta.Estado,
+                PersonaId = cuenta.PersonaId
+            };
+
+            _context.Cuentas.Update(cuentaActualizada);
             await _context.SaveChangesAsync();
         }
         

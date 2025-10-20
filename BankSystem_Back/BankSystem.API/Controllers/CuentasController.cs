@@ -1,4 +1,5 @@
-﻿using BankSystem.Application.Interfaces;
+﻿using BankSystem.Application.DTOs.Cuentas;
+using BankSystem.Application.Interfaces;
 using BankSystem.Domain.Entities;
 using BankSystem.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -17,14 +18,14 @@ namespace BankSystem.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IList<Cuenta>>> GetAll()
+        public async Task<ActionResult<IList<CuentasDTO>>> GetAll()
         {
             var cuentas = await _cuentaRepository.GetAllAsync();
             return Ok(cuentas);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Cuenta>> GetById(int id)
+        public async Task<ActionResult<CuentasDTO>> GetById(int id)
         {
             var cuenta = await _cuentaRepository.GetByIdAsync(id);
             if (cuenta == null) return NotFound();
@@ -32,14 +33,14 @@ namespace BankSystem.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Cuenta cuenta)
+        public async Task<IActionResult> Create(CrearCuentaDTO cuenta)
         {
             await _cuentaRepository.AddAsync(cuenta);
             return Ok(cuenta);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(Cuenta cuenta)
+        public async Task<IActionResult> Update(CuentasDTO cuenta)
         {
             await _cuentaRepository.UpdateAsync(cuenta);
             return Ok(cuenta);

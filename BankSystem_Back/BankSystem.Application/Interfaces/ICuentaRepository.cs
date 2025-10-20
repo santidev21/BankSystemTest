@@ -1,4 +1,5 @@
-﻿using BankSystem.Domain.Entities;
+﻿using BankSystem.Application.DTOs.Cuentas;
+using BankSystem.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace BankSystem.Application.Interfaces
 {
     public interface ICuentaRepository
     {
-        Task AddAsync(Cuenta cuenta);
-        Task UpdateAsync(Cuenta cuenta);
+        Task AddAsync(CrearCuentaDTO cuenta);
+        Task UpdateAsync(CuentasDTO cuenta);
         Task DeleteAsync(int id);
-        Task<Cuenta> GetByIdAsync(int id);
-        Task<IList<Cuenta>> GetAllAsync();
+        Task<CuentasDTO> GetByIdAsync(int id);
+        Task<IList<CuentasDTO>> GetAllAsync();
         Task<decimal> GetBalanceAsync(int id);
 
     }
