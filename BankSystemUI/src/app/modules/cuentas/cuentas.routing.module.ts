@@ -7,7 +7,6 @@ import { NuevaCuentaComponent } from './nueva-cuenta/nueva-cuenta.component';
 const routes: Routes = [
   { path: 'inicio', component: CuentasComponent},
   { path: 'nuevo', component: NuevaCuentaComponent},
-  { path: 'editar/:id', component: NuevaCuentaComponent },
   { path: '**', redirectTo: 'inicio'}
 ];
 

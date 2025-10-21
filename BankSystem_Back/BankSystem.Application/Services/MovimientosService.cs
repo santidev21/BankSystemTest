@@ -55,6 +55,12 @@ namespace BankSystem.Application.Services
             await _movimientoRepository.AddAsync(movimiento);
         }
 
+        public async Task<IList<MovimientosDTO>> GetAllAsync()
+        {
+            var movimientos = await _movimientoRepository.GetAllAsync();
+            return MapMovimientosToMovimientosDTO(movimientos);
+        }
+
         public async Task<IList<MovimientosDTO>> GetAllByCuentaIdAsync(int cuentaId)
         {
             var movimientos = await _movimientoRepository.GetAllByCuentaIdAsync(cuentaId);

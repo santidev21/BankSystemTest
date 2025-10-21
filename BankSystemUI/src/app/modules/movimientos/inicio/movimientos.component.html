@@ -1,0 +1,40 @@
+<div class="container">
+    <h2>Movimientos</h2>
+    <div class="tools-bar">
+        <input type="text" placeholder="Buscar movimiento..." class="search-input" [(ngModel)]="filtro"/>
+        <button class="button primary" (click)="agregarNuevomovimiento()">Nuevo movimiento</button>
+    </div>
+    <div class="info-container">
+         <ng-container *ngIf="false; else tablamovimientos">
+            <span class="warning-text">No hay movimientos registrados. Por favor agregue uno nuevo.</span>    
+        </ng-container>
+        <ng-template #tablamovimientos>
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>Fecha</th>
+                    <th>Nombre</th>
+                    <th>Tipo</th>
+                    <th>No Cuenta</th>
+                    <th>Saldo Inicial</th>
+                    <th>Tipo Movimiento</th>
+                    <th>Valor</th>
+                    <th>Saldo Disponible</th>
+                    <th>Estado</th>
+                </tr>
+                <tr *ngFor="let movimiento of listaMovimientosFiltrada;">
+                    <td>{{movimiento.movimientoId}}.</td>
+                    <td>{{ movimiento.fecha | date:'yyyy-MM-dd' }}</td>
+                    <td>{{movimiento.nombreCliente}}</td>
+                    <td>{{movimiento.tipoCuenta}}</td>
+                    <td>{{movimiento.numeroCuenta}}</td>
+                    <td>{{movimiento.saldoInicial}}</td>
+                    <td>Debitoxd</td>
+                    <td>{{movimiento.movimiento}}</td>
+                    <td>{{movimiento.saldoDisponible}}</td>
+                    <td>{{movimiento.estado}}</td>
+                </tr>
+            </table> 
+        </ng-template>
+    </div>
+</div>

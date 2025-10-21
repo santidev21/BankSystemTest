@@ -22,6 +22,13 @@ namespace BankSystem.API.Controllers
             return Ok(movimiento);
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IList<MovimientosDTO>>> GetAll()
+        {
+            var movimientos = await _movimientosService.GetAllAsync();
+            return Ok(movimientos);
+        }
+
         [HttpGet("cuenta/{id}")]
         public async Task<ActionResult<IList<MovimientosDTO>>> GetAllMovimientosCuenta(int id)
         {

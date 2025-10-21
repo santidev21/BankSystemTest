@@ -47,14 +47,14 @@ export class NuevoClienteComponent implements OnInit {
     if(this.isEditMode){
       let clienteEditado = this.clienteForm.value;
       clienteEditado.personaId = this.activeRoute.snapshot.paramMap.get('id');
-      this.clientesService.actualizarCliente(clienteEditado).subscribe(resp => {this.redirtect()});
+      this.clientesService.actualizarCliente(clienteEditado).subscribe(resp => {this.redirect()});
       
     }
     else{
       let clienteNuevo = this.clienteForm.value;
       console.log(clienteNuevo);
       
-      this.clientesService.crearCliente(clienteNuevo).subscribe(resp => {this.redirtect()});
+      this.clientesService.crearCliente(clienteNuevo).subscribe(resp => {this.redirect()});
     }
     } else {
       this.clienteForm.markAllAsTouched();
@@ -63,7 +63,7 @@ export class NuevoClienteComponent implements OnInit {
 
   }
 
-  redirtect(): void {
+  redirect(): void {
     this.router.navigate(['/clientes']);
   }
 

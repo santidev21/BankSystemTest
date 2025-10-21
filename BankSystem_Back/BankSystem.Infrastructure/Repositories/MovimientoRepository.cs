@@ -19,6 +19,14 @@ namespace BankSystem.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task<IList<Movimiento>> GetAllAsync()
+        {
+            return await _context.Movimientos.Include(m => m.Cuenta)
+                .Include(mov => mov.Cuenta)
+                .ThenInclude(cta => cta.Cliente)
+                .ToListAsync();
+        }
+
         public async Task<IList<Movimiento>> GetAllByCuentaIdAsync(int cuentaId)
         {
             return await _context.Movimientos.Where(mov => mov.CuentaId == cuentaId)

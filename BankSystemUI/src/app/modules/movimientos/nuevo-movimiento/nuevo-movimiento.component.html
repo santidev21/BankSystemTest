@@ -1,0 +1,48 @@
+<h2>Agregar movimiento</h2>
+
+<form [formGroup]="movimientosForm" (ngSubmit)="onSubmit()">
+    <div class="forms-columns">
+        <div class="column">
+            <div class="form-field-group">
+                <div class="form-field">
+                    <label for="tipo">Tipo:</label>
+                    <select id="tipo" formControlName="tipo">
+                        <option *ngFor="let g of tipos" [value]="g">{{ g }}</option>
+                    </select>
+                </div>
+                <span class="warning-text" [class.visible]="movimientosForm.get('tipo')?.invalid && movimientosForm.get('tipo')?.touched">
+                    Tipo es requerido
+                </span>
+            </div>
+
+            <div class="form-field-group">
+                <div class="form-field">
+                    <label for="valor">Valor:</label>
+                    <input id="valor" type="number" formControlName="valor"/>
+                </div>
+                <span class="warning-text" [class.visible]="movimientosForm.get('valor')?.invalid && movimientosForm.get('valor')?.touched">
+                    Valor es requerido y debe ser posiivo
+                </span>
+            </div> 
+
+            <div class="form-field-group">
+                <div class="form-field">
+                    <label for="cuentaId">Cuenta:</label>
+                    <select id="cuentaId" formControlName="cuentaId">
+                        <option *ngFor="let c of listaCuentas" [value]="c.cuentaId">{{ c.numeroCuenta }}</option>
+                    </select>
+                </div>
+                <span class="warning-text" [class.visible]="movimientosForm.get('cuentaId')?.invalid && movimientosForm.get('cuentaId')?.touched">
+                    Cuenta es requerida
+                </span>
+            </div>
+        </div>
+        
+       
+    </div>
+
+    <div class="action-buttons">
+        <button type="submit" class="button primary">Agregar</button>
+        <button type="button" class="button secondary" (click)="redirect()">Cancelar</button>
+    </div>
+</form>

@@ -61,12 +61,12 @@ export class NuevaCuentaComponent implements OnInit {
       console.log(cuentaEditado);
       
       
-      this.cuentasService.actualizarCuenta(cuentaEditado).subscribe(resp => {this.redirtect()});
+      this.cuentasService.actualizarCuenta(cuentaEditado).subscribe(resp => {this.redirect()});
       
     }
     else{
       let cuentaNuevo = this.cuentaForm.value;
-      this.cuentasService.crearCuenta(cuentaNuevo).subscribe(resp => {this.redirtect()});
+      this.cuentasService.crearCuenta(cuentaNuevo).subscribe(resp => {this.redirect()});
     }
     } else {
       this.cuentaForm.markAllAsTouched();
@@ -75,7 +75,7 @@ export class NuevaCuentaComponent implements OnInit {
 
   }
 
-  redirtect(): void {
+  redirect(): void {
     this.router.navigate(['/cuentas']);
   }
 
