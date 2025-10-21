@@ -8,7 +8,7 @@
         public int Identificacion { get; set; }
         public string Direccion { get; set; }
         public int Telefono { get; set; }
-        public string Contraseña { get; set; }
+        public string Contrasena { get; set; }
         public bool Estado { get; set; }
     }
 }

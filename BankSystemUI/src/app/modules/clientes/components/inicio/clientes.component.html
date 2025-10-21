@@ -1,0 +1,41 @@
+<div class="clientes-container">
+    <h2>Clientes</h2>
+    <div class="tools-bar">
+        <input type="text" placeholder="Buscar cliente..." class="search-input" [(ngModel)]="filtro"/>
+        <button class="button primary" (click)="agregarNuevoCliente()">Nuevo cliente</button>
+    </div>
+    <div class="info-container">
+         <ng-container *ngIf="false; else tablaClientes">
+            <span class="warning-text">No hay clientes registrados. Por favor agregue uno nuevo.</span>    
+        </ng-container>
+        <ng-template #tablaClientes>
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>identificacion</th>
+                    <th>Edad</th>
+                    <th>Direccion</th>
+                    <th>Telefono</th>
+                    <th>Contraseña</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+                <tr *ngFor="let cliente of listaClientesFiltrada;">
+                    <td>{{cliente.personaId}}.</td>
+                    <td>{{cliente.nombre}}</td>
+                    <td>{{cliente.identificacion}}</td>
+                    <td>{{cliente.edad}} años</td>
+                    <td>{{cliente.direccion}}</td>
+                    <td>{{cliente.telefono}}</td>
+                    <td>{{cliente.contrasena}}</td>
+                    <td>{{cliente.estado}}</td>
+                    <td>
+                        <img src="assets/icons/edit.svg" (click)="editarCliente(cliente.personaId)" style="cursor: pointer" />
+                        <img src="assets/icons/delete.svg" (click)="eliminarCliente(cliente.personaId)" style="cursor: pointer" />
+                    </td>
+                </tr>
+            </table> 
+        </ng-template>
+    </div>
+</div>

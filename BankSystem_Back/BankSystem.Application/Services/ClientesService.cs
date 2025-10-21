@@ -60,7 +60,7 @@ namespace BankSystem.Application.Services
                 Direccion = cliente.Direccion,
                 Telefono = cliente.Telefono,
                 Estado = cliente.Estado,
-                Contraseña = cliente.Contraseña
+                Contraseña = cliente.Contrasena
             };
         }
 
@@ -76,7 +76,7 @@ namespace BankSystem.Application.Services
                 Direccion = cliente.Direccion,
                 Telefono = cliente.Telefono,
                 Estado = cliente.Estado,
-                Contraseña = cliente.Contraseña
+                Contrasena = cliente.Contraseña
             };
         }
 
@@ -92,7 +92,7 @@ namespace BankSystem.Application.Services
                 Direccion = cliente.Direccion,
                 Telefono = cliente.Telefono,
                 Estado = cliente.Estado,
-                Contraseña = cliente.Contraseña
+                Contraseña = cliente.Contrasena
             };
         }
     }

@@ -1,0 +1,32 @@
+<h2>{{ isEditMode ? 'Editar' : 'Agregar Nuevo' }} Cliente</h2>
+
+<form [formGroup]="clienteForm" (ngSubmit)="onSubmit()">
+    <label for="nombre">Nombre:</label>
+    <input id="nombre" type="text" formControlName="nombre" />
+    
+    <label for="genero">Genero:</label>
+    <select id="color" formControlName="genero">
+        <option *ngFor="let g of generos" [value]="g">{{ g }}</option>
+    </select>
+
+    <label for="edad">Edad:</label>
+    <input id="edad" type="number" formControlName="edad" />
+
+    <label for="identificacion">Identificacion:</label>
+    <input id="identificacion" type="number" formControlName="identificacion" />
+
+    <label for="direccion">Direccion:</label>
+    <input id="direccion" type="text" formControlName="direccion" />
+
+    <label for="telefono">Telefono:</label>
+    <input id="telefono" type="text" formControlName="telefono" />
+
+    <label for="contrasena">Contraseña:</label>
+    <input id="contrasena" type="password" formControlName="contrasena" />
+
+    <label for="estado">Estado:</label>
+    <input type="checkbox" id="estado" formControlName="estado" />
+
+    <button type="submit" class="button primary"> {{ isEditMode ? 'Editar' : 'Agregar' }}</button>
+    <button type="button" class="button primary" (click)="redirtect()">Cancelar</button>
+</form>
