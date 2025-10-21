@@ -1,0 +1,28 @@
+.clientes-container{
+    width: 100%;
+
+    h2{
+        color: var(--text-dark);
+        font-weight: bold;
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+
+    .tools-bar{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        width: 100%;
+
+        .search-input{
+            flex: 1;
+            width: 300px;
+            margin-right: 100px;
+        }
+
+        button{
+            white-space: nowrap;
+        }
+    }
+}

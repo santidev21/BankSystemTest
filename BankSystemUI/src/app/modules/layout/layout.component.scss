@@ -45,15 +45,3 @@
         }
     }
 }
-
-.tabs-nav button.active {
-  background: var(--accent);
-  color: var(--bg-dark);
-  border: 2px solid var(--text-light);
-}
-
-.tabs-nav button:hover:not(.active):not(.disabled) {
-  background: var(--accent-hover);
-  color: var(--text-dark);
-  border: 2px solid var(--text-light);
-}

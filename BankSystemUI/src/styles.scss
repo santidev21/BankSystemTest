@@ -5,8 +5,8 @@
     --border-color: #444;
     --text-dark: #000000;
     --text-ligth: #ffffff;
-    --accent-color: #c3b129;
-    --accent-hover: #c3b12981;
+    --accent-color: #ffe205;
+    --accent-hover: #c6b009;
     --navbar-background: #f5f5f5;
     --navbar-text: #333;
     --navbar-hover: #3152d3;
@@ -364,4 +364,34 @@ template {
 
 [hidden] {
   display: none;
+}
+
+input{
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+.button {
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: background 0.3s;
+
+  &.primary {
+    background-color: var(--accent-color);
+    color: var(--text-dark);
+
+    &:hover { 
+        background-color: var(--accent-hover);
+    }
+  }
+}
+
+.warning-text{
+    font-weight: bold;
+    color: red;
+    text-align: center  ;
 }

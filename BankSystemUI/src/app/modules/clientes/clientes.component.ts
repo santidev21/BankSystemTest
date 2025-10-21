@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./clientes.component.scss']
 })
 export class ClientesComponent implements OnInit {
+  listaClientes: any[] = [
+    { id: 1, nombre: 'Juan Perez'}
+  ];
 
   constructor() { }
 
