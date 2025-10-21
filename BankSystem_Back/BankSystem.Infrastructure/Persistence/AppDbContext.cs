@@ -24,7 +24,8 @@ namespace BankSystem.Infrastructure.Persistence
             modelBuilder.Entity<Cuenta>()
                 .HasMany(c => c.Movimientos)
                 .WithOne(c => c.Cuenta)
-                .HasForeignKey(c => c.CuentaId);
+                .HasForeignKey(c => c.CuentaId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Cuenta>()
                 .HasIndex(c => c.NumeroCuenta)

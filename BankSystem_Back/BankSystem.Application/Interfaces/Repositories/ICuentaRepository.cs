@@ -1,20 +1,14 @@
-﻿using BankSystem.Application.DTOs.Cuentas;
-using BankSystem.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BankSystem.Domain.Entities;
 
 namespace BankSystem.Application.Interfaces.Repositories
 {
     public interface ICuentaRepository
     {
-        Task AddAsync(CrearCuentaDTO cuenta);
-        Task UpdateAsync(CuentasDTO cuenta);
-        Task DeleteAsync(int id);
-        Task<CuentasDTO> GetByIdAsync(int id);
-        Task<IList<CuentasDTO>> GetAllAsync();
+        Task AddAsync(Cuenta cuenta);
+        Task UpdateAsync(Cuenta cuenta);
+        Task DeleteAsync(Cuenta id);
+        Task<Cuenta> GetByIdAsync(int id);
+        Task<IList<Cuenta>> GetAllAsync();
         Task<int> GetBalanceAsync(int id);
 
     }

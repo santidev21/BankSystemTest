@@ -1,7 +1,5 @@
 ﻿using BankSystem.Application.DTOs.Cuentas;
-using BankSystem.Application.Interfaces.Repositories;
-using BankSystem.Domain.Entities;
-using BankSystem.Infrastructure.Repositories;
+using BankSystem.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankSystem.API.Controllers
@@ -10,24 +8,24 @@ namespace BankSystem.API.Controllers
     [Route("api/[controller]")]
     public class CuentasController : Controller
     {
-        private readonly ICuentaRepository _cuentaRepository;
+        private readonly ICuentasService _cuentaService;
 
-        public CuentasController(ICuentaRepository cuentaRepository)
+        public CuentasController(ICuentasService cuentasService)
         {
-            _cuentaRepository = cuentaRepository;
+            _cuentaService = cuentasService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IList<CuentasDTO>>> GetAll()
         {
-            var cuentas = await _cuentaRepository.GetAllAsync();
+            var cuentas = await _cuentaService.GetAllAsync();
             return Ok(cuentas);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<CuentasDTO>> GetById(int id)
         {
-            var cuenta = await _cuentaRepository.GetByIdAsync(id);
+            var cuenta = await _cuentaService.GetByIdAsync(id);
             if (cuenta == null) return NotFound();
             return Ok(cuenta);
         }
@@ -35,21 +33,21 @@ namespace BankSystem.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CrearCuentaDTO cuenta)
         {
-            await _cuentaRepository.AddAsync(cuenta);
+            await _cuentaService.AddAsync(cuenta);
             return Ok(cuenta);
         }
 
         [HttpPut]
         public async Task<IActionResult> Update(CuentasDTO cuenta)
         {
-            await _cuentaRepository.UpdateAsync(cuenta);
+            await _cuentaService.UpdateAsync(cuenta);
             return Ok(cuenta);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _cuentaRepository.DeleteAsync(id);
+            await _cuentaService.DeleteAsync(id);
             return Ok();
         }
     }
