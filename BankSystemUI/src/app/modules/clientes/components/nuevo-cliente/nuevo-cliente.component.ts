@@ -55,7 +55,8 @@ export class NuevoClienteComponent implements OnInit {
       this.clientesService.crearCliente(clienteNuevo).subscribe(resp => {this.redirtect()});
     }
     } else {
-      console.log('Formulario inválido');
+      this.clienteForm.markAllAsTouched();
+      return;
     }
 
   }
@@ -63,5 +64,6 @@ export class NuevoClienteComponent implements OnInit {
   redirtect(): void {
     this.router.navigate(['/clientes']);
   }
+
 
 }

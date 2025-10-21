@@ -1,32 +1,94 @@
 <h2>{{ isEditMode ? 'Editar' : 'Agregar Nuevo' }} Cliente</h2>
 
 <form [formGroup]="clienteForm" (ngSubmit)="onSubmit()">
-    <label for="nombre">Nombre:</label>
-    <input id="nombre" type="text" formControlName="nombre" />
-    
-    <label for="genero">Genero:</label>
-    <select id="color" formControlName="genero">
-        <option *ngFor="let g of generos" [value]="g">{{ g }}</option>
-    </select>
+    <div class="forms-columns">
+        <div class="column">
+            <div class="form-field-group">
+                <div class="form-field">
+                    <label for="nombre">Nombre:</label>
+                    <input id="nombre" type="text" formControlName="nombre" />
+                </div>
+                <span class="warning-text" [class.visible]="clienteForm.get('nombre')?.invalid && clienteForm.get('nombre')?.touched">
+                    Nombre es requerido
+                </span>
 
-    <label for="edad">Edad:</label>
-    <input id="edad" type="number" formControlName="edad" />
+            </div>
 
-    <label for="identificacion">Identificacion:</label>
-    <input id="identificacion" type="number" formControlName="identificacion" />
+            <div class="form-field-group">
+                <div class="form-field">
+                    <label for="genero">Genero:</label>
+                    <select id="color" formControlName="genero">
+                        <option *ngFor="let g of generos" [value]="g">{{ g }}</option>
+                    </select>
+                </div>
+                <span class="warning-text" [class.visible]="clienteForm.get('genero')?.invalid && clienteForm.get('genero')?.touched">
+                    Genero es requerido
+                </span>
+            </div>
 
-    <label for="direccion">Direccion:</label>
-    <input id="direccion" type="text" formControlName="direccion" />
+            <div class="form-field-group">
+                <div class="form-field">
+                    <label for="edad">Edad:</label>
+                    <input id="edad" type="number" formControlName="edad" />
+                </div>
+                <span class="warning-text" [class.visible]="clienteForm.get('edad')?.invalid && clienteForm.get('edad')?.touched">
+                    Edad es requerida
+                </span>
+            </div>
 
-    <label for="telefono">Telefono:</label>
-    <input id="telefono" type="text" formControlName="telefono" />
+            <div class="form-field-group">
+                <div class="form-field">
+                    <label for="identificacion">Identificacion:</label>
+                    <input id="identificacion" type="number" formControlName="identificacion" />
+                </div>
+                <span class="warning-text" [class.visible]="clienteForm.get('identificacion')?.invalid && clienteForm.get('identificacion')?.touched">
+                    Identificacion es requerido
+                </span>
+            </div>
+        </div>
+        
+        <div class="column">
+            <div class="form-field-group">
+                <div class="form-field">
+                    <label for="direccion">Direccion:</label>
+                    <input id="direccion" type="text" formControlName="direccion" />
+                </div>
+                <span class="warning-text" [class.visible]="clienteForm.get('direccion')?.invalid && clienteForm.get('direccion')?.touched">
+                    Direccion es requerida
+                </span>
+            </div>
 
-    <label for="contrasena">Contraseña:</label>
-    <input id="contrasena" type="password" formControlName="contrasena" />
+            <div class="form-field-group">
+                <div class="form-field">
+                    <label for="telefono">Telefono:</label>
+                    <input id="telefono" type="text" formControlName="telefono" />
+                </div>
+                <span class="warning-text" [class.visible]="clienteForm.get('telefono')?.invalid && clienteForm.get('telefono')?.touched">
+                    Teléfono es requerido
+                </span>
+            </div>
 
-    <label for="estado">Estado:</label>
-    <input type="checkbox" id="estado" formControlName="estado" />
+            <div class="form-field-group">
+                <div class="form-field">
+                    <label for="contrasena">Contraseña:</label>
+                    <input id="contrasena" type="password" formControlName="contrasena" />
+                </div>
+                <span class="warning-text" [class.visible]="clienteForm.get('contrasena')?.invalid && clienteForm.get('contrasena')?.touched">
+                    Contraseña es requerida y debe tener al menos 4 caracteres
+                </span>
+            </div>
 
-    <button type="submit" class="button primary"> {{ isEditMode ? 'Editar' : 'Agregar' }}</button>
-    <button type="button" class="button primary" (click)="redirtect()">Cancelar</button>
+            <div class="form-field-group">
+                <div class="form-field">
+                    <label for="estado">Estado:</label>
+                    <input type="checkbox" id="estado" formControlName="estado" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <button type="submit" class="button primary"> {{ isEditMode ? 'Editar' : 'Agregar' }}</button>
+        <button type="button" class="button secondary" (click)="redirtect()">Cancelar</button>
+    </div>
 </form>
