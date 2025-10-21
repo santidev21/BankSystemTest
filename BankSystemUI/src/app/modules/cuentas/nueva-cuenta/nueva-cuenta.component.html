@@ -1,0 +1,66 @@
+<h2>{{ isEditMode ? 'Editar' : 'Agregar Nuevo' }} Cuenta</h2>
+
+<form [formGroup]="cuentaForm" (ngSubmit)="onSubmit()">
+    <div class="forms-columns">
+        <div class="column">
+            <div class="form-field-group">
+                <div class="form-field">
+                    <label for="numeroCuenta">Número Cuenta:</label>
+                    <input id="numeroCuenta" type="number" formControlName="numeroCuenta" />
+                </div>
+                <span class="warning-text" [class.visible]="cuentaForm.get('numeroCuenta')?.invalid && cuentaForm.get('numeroCuenta')?.touched">
+                    Número de cuenta es requerido
+                </span>
+
+            </div>
+
+            <div class="form-field-group">
+                <div class="form-field">
+                    <label for="tipo">Tipo:</label>
+                    <select id="tipo" formControlName="tipo">
+                        <option *ngFor="let g of tipos" [value]="g">{{ g }}</option>
+                    </select>
+                </div>
+                <span class="warning-text" [class.visible]="cuentaForm.get('tipo')?.invalid && cuentaForm.get('tipo')?.touched">
+                    Tipo es requerido
+                </span>
+            </div>
+
+            <div class="form-field-group">
+                <div class="form-field">
+                    <label for="saldoInicial">Saldo Inicial:</label>
+                    <input id="saldoInicial" type="number" formControlName="saldoInicial" [disabled]="isEditMode" />
+                </div>
+                <span class="warning-text" [class.visible]="cuentaForm.get('saldoInicial')?.invalid && cuentaForm.get('saldoInicial')?.touched">
+                    Saldo inicial es requerida
+                </span>
+            </div>
+        </div>
+        
+        <div class="column">
+            <div class="form-field-group">
+                <div class="form-field">
+                    <label for="personaId">Cliente:</label>
+                    <select id="personaId" formControlName="personaId">
+                        <option *ngFor="let c of listaClientes" [value]="c.personaId">{{ c.nombre }}</option>
+                    </select>
+                </div>
+                <span class="warning-text" [class.visible]="cuentaForm.get('personaId')?.invalid && cuentaForm.get('personaId')?.touched">
+                    Cliente es requerido
+                </span>
+            </div>
+
+            <div class="form-field-group">
+                <div class="form-field">
+                    <label for="estado">Estado:</label>
+                    <input type="checkbox" id="estado" formControlName="estado" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <button type="submit" class="button primary"> {{ isEditMode ? 'Editar' : 'Agregar' }}</button>
+        <button type="button" class="button secondary" (click)="redirtect()">Cancelar</button>
+    </div>
+</form>

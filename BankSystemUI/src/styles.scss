@@ -119,6 +119,27 @@ h2{
 }
 
 // Estilo de tablas
+.container{
+    width: 100%;
+    
+    .tools-bar{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        width: 100%;
+
+        .search-input{
+            width: 250px;
+        }
+
+        button{
+            white-space: nowrap;
+        }
+    }
+}
+
+
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;

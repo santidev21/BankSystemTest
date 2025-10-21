@@ -52,6 +52,8 @@ export class NuevoClienteComponent implements OnInit {
     }
     else{
       let clienteNuevo = this.clienteForm.value;
+      console.log(clienteNuevo);
+      
       this.clientesService.crearCliente(clienteNuevo).subscribe(resp => {this.redirtect()});
     }
     } else {

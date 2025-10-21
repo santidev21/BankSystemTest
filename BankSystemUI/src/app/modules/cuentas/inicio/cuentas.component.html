@@ -1,0 +1,38 @@
+<div class="container">
+    <h2>Cuentas</h2>
+    <div class="tools-bar">
+        <input type="text" placeholder="Buscar cuenta..." class="search-input" [(ngModel)]="filtro"/>
+        <button class="button primary" (click)="agregarNuevaCuenta()">Nueva Cuenta</button>
+    </div>
+    <div class="info-container">
+         <ng-container *ngIf="false; else tablaCuentas">
+            <span class="warning-text">No hay cuentas registaradas. Por favor agregue una nuevo.</span>    
+        </ng-container>
+        <ng-template #tablaCuentas>
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>No Cuenta</th>
+                    <th>Tipo</th>
+                    <th>Saldo Inicial</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+
+                </tr>
+                <tr *ngFor="let cuenta of listaCuentasFiltrada;">
+                    <td>{{cuenta.cuentaId}}.</td>
+                    <td>{{cuenta.nombreCliente}}</td>
+                    <td>{{cuenta.numeroCuenta}}</td>
+                    <td>{{cuenta.tipo}}</td>
+                    <td>{{cuenta.saldoInicial}}</td>
+                    <td>{{cuenta.estado}}</td>
+                    <td>
+                        <img src="assets/icons/edit.svg" (click)="editarCuenta(cuenta.cuentaId)" style="cursor: pointer" />
+                        <img src="assets/icons/delete.svg" (click)="eliminarCuenta(cuenta.cuentaId)" style="cursor: pointer" />
+                    </td>
+                </tr>
+            </table> 
+        </ng-template>
+    </div>
+</div>
