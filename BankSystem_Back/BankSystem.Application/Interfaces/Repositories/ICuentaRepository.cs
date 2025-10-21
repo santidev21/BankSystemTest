@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BankSystem.Application.Interfaces
+namespace BankSystem.Application.Interfaces.Repositories
 {
     public interface ICuentaRepository
     {
@@ -15,7 +15,7 @@ namespace BankSystem.Application.Interfaces
         Task DeleteAsync(int id);
         Task<CuentasDTO> GetByIdAsync(int id);
         Task<IList<CuentasDTO>> GetAllAsync();
-        Task<decimal> GetBalanceAsync(int id);
+        Task<int> GetBalanceAsync(int id);
 
     }
 }

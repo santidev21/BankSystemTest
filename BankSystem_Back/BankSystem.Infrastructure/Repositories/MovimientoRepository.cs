@@ -1,12 +1,7 @@
-﻿using BankSystem.Application.Interfaces;
+﻿using BankSystem.Application.Interfaces.Repositories;
 using BankSystem.Domain.Entities;
 using BankSystem.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BankSystem.Infrastructure.Repositories
 {
@@ -26,18 +21,20 @@ namespace BankSystem.Infrastructure.Repositories
 
         public async Task<IList<Movimiento>> GetAllByCuentaIdAsync(int cuentaId)
         {
-            return await _context.Movimientos.Where(mov => mov.CuentaId == cuentaId).ToListAsync();
-        }
-
-        public async Task<Movimiento> GetByIdAsync(int id)
-        {
-            return await _context.Movimientos.FindAsync(id);
+            return await _context.Movimientos.Where(mov => mov.CuentaId == cuentaId)
+                .Include(mov => mov.Cuenta)
+                .ThenInclude(cta => cta.Cliente)
+                .ToListAsync();
         }
 
         public async Task<IList<Movimiento>> GetByRangoFechaAsync(int cuentaId, DateTime limiteInferior, DateTime limiteSuperior)
         {
             return await _context.Movimientos
-                .Where(mov => mov.CuentaId == cuentaId && mov.Fecha >= limiteInferior && mov.Fecha <= limiteSuperior)
+                .Where(mov => mov.CuentaId == cuentaId &&
+                    mov.Fecha >= limiteInferior.Date &&
+                    mov.Fecha <= limiteSuperior.AddDays(1).Date)
+                .Include(mov => mov.Cuenta)
+                .ThenInclude(cta => cta.Cliente)
                 .ToListAsync();
         }
     }

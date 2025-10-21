@@ -1,5 +1,5 @@
 ﻿using BankSystem.Application.DTOs.Cuentas;
-using BankSystem.Application.Interfaces;
+using BankSystem.Application.Interfaces.Repositories;
 using BankSystem.Domain.Constants;
 using BankSystem.Domain.Entities;
 using BankSystem.Infrastructure.Persistence;
@@ -98,14 +98,17 @@ namespace BankSystem.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
         
-        public async Task<decimal> GetBalanceAsync(int id)
+        public async Task<int> GetBalanceAsync(int id)
         {
-            var movimientos = await _context.Movimientos.Where(mov => mov.CuentaId == id).ToListAsync();
-            var creditosTotales = movimientos.Where(mov => mov.Tipo == CuentasRules.credito).Sum(mov => mov.Valor);
-            var debitosTotales = movimientos.Where(mov => mov.Tipo == CuentasRules.debito).Sum(mov => mov.Valor);
+            var movimiento = await _context.Movimientos.Where(mov => mov.CuentaId == id)
+                .OrderByDescending(mov => mov.Fecha)
+                .FirstOrDefaultAsync();
 
-            return creditosTotales - debitosTotales;
+            if(movimiento != null)
+                return movimiento.Saldo;
 
+            var cuenta = await _context.Cuentas.Where(cta => cta.CuentaId.Equals(id)).FirstOrDefaultAsync();
+            return cuenta.SaldoInicial;
         }
     }
 }

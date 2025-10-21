@@ -15,6 +15,6 @@ namespace BankSystem.Domain.Entities
         public int Saldo { get; set; }
 
         public int CuentaId { get; set; }
-        public Cuenta Cuenta { get; set; } = new Cuenta();
+        public Cuenta Cuenta { get; set; }
     }
 }

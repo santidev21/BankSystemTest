@@ -1,4 +1,6 @@
-using BankSystem.Application.Interfaces;
+using BankSystem.Application.Interfaces.Repositories;
+using BankSystem.Application.Interfaces.Services;
+using BankSystem.Application.Services;
 using BankSystem.Infrastructure.Persistence;
 using BankSystem.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +20,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<ICuentaRepository, CuentaRepository>();
 builder.Services.AddScoped<IMovimientoRepository, MovimientoRepository>();
+builder.Services.AddScoped<IMovimientosService, MovimientosService>();
 
 var app = builder.Build();
 

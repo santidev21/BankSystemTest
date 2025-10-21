@@ -1,5 +1,5 @@
 ﻿using BankSystem.Application.DTOs.Cuentas;
-using BankSystem.Application.Interfaces;
+using BankSystem.Application.Interfaces.Repositories;
 using BankSystem.Domain.Entities;
 using BankSystem.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;

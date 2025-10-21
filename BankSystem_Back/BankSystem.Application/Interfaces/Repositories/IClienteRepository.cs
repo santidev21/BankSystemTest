@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BankSystem.Application.Interfaces
+namespace BankSystem.Application.Interfaces.Repositories
 {
     public interface IClienteRepository
     {

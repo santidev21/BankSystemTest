@@ -1,6 +1,5 @@
-﻿using BankSystem.Application.Interfaces;
-using BankSystem.Domain.Entities;
-using BankSystem.Infrastructure.Repositories;
+﻿using BankSystem.Application.DTOs.Movimientos;
+using BankSystem.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankSystem.API.Controllers
@@ -9,39 +8,33 @@ namespace BankSystem.API.Controllers
     [Route("api/[controller]")]
     public class MovimientosController : Controller
     {
-        private readonly IMovimientoRepository _movimientoRepository;
+        private IMovimientosService _movimientosService;
 
-        public MovimientosController(IMovimientoRepository movimientoRepository)
+        public MovimientosController(IMovimientosService movimientoService)
         {
-            _movimientoRepository = movimientoRepository;
-        }
-
-        [HttpGet("cuenta/{id}")]
-        public async Task<ActionResult<IList<Cuenta>>> GetAllMovimientosCuenta(int id)
-        {
-            var movimientos = await _movimientoRepository.GetAllByCuentaIdAsync(id);
-            return Ok(movimientos);
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Cuenta>> GetById(int id)
-        {
-            var movimiento = await _movimientoRepository.GetByIdAsync(id);
-            if (movimiento == null) return NotFound();
-            return Ok(movimiento);
+            _movimientosService = movimientoService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Movimiento movimiento)
+        public async Task<IActionResult> Create(CrearMovimientoDTO movimiento)
         {
-            await _movimientoRepository.AddAsync(movimiento);
+            await _movimientosService.AddMovimientoAsync(movimiento);
             return Ok(movimiento);
         }
 
-        [HttpGet("cuenta/{id}/rango")]
-        public async Task<ActionResult<IList<Cuenta>>> GetByRangoFechas(int id, DateTime limiteInferior, DateTime limiteSuperior)
+        [HttpGet("cuenta/{id}")]
+        public async Task<ActionResult<IList<MovimientosDTO>>> GetAllMovimientosCuenta(int id)
         {
-            var movimientos = await _movimientoRepository.GetByRangoFechaAsync(id, limiteInferior, limiteSuperior);
+            var movimientos = await _movimientosService.GetAllByCuentaIdAsync(id);
+            if (movimientos == null) return NotFound();
+            return Ok(movimientos);
+        }
+
+        [HttpGet("cuenta/{id}/rango")]
+        public async Task<ActionResult<IList<MovimientosDTO>>> GetByRangoFechas(int id, DateTime limiteInferior, DateTime limiteSuperior)
+        {
+            var movimientos = await _movimientosService.GetByRangoFechaAsync(id, limiteInferior, limiteSuperior);
+            if (movimientos == null) return NotFound();
             return Ok(movimientos);
         }
     }

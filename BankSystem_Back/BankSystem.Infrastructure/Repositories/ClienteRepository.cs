@@ -1,4 +1,4 @@
-﻿using BankSystem.Application.Interfaces;
+﻿using BankSystem.Application.Interfaces.Repositories;
 using BankSystem.Domain.Entities;
 using BankSystem.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
