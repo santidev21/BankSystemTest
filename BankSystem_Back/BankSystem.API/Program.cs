@@ -20,6 +20,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<ICuentaRepository, CuentaRepository>();
 builder.Services.AddScoped<IMovimientoRepository, MovimientoRepository>();
+builder.Services.AddScoped<IClientesService, ClientesService>();
 builder.Services.AddScoped<ICuentasService, CuentasService>();
 builder.Services.AddScoped<IMovimientosService, MovimientosService>();
 

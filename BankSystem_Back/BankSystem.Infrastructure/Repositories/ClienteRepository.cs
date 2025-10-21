@@ -2,11 +2,6 @@
 using BankSystem.Domain.Entities;
 using BankSystem.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BankSystem.Infrastructure.Repositories
 {
@@ -24,14 +19,10 @@ namespace BankSystem.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(Cliente cliente)
         {
-            var cliente = await _context.Clientes.FindAsync(id);
-            if(cliente != null)
-            {
-                _context.Clientes.Remove(cliente);
-                await _context.SaveChangesAsync();
-            }
+            _context.Clientes.Remove(cliente);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<IList<Cliente>> GetAllAsync()
