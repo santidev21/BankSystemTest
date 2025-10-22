@@ -4,10 +4,12 @@ using BankSystem.Application.Services;
 using BankSystem.Infrastructure.Persistence;
 using BankSystem.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using QuestPDF.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+QuestPDF.Settings.License = LicenseType.Community;
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -23,6 +25,7 @@ builder.Services.AddScoped<IMovimientoRepository, MovimientoRepository>();
 builder.Services.AddScoped<IClientesService, ClientesService>();
 builder.Services.AddScoped<ICuentasService, CuentasService>();
 builder.Services.AddScoped<IMovimientosService, MovimientosService>();
+builder.Services.AddScoped<IExportService, ExportService>();
 
 // Add CORS
 builder.Services.AddCors(options =>

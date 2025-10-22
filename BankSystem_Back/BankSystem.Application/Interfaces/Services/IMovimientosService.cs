@@ -1,4 +1,5 @@
-﻿using BankSystem.Application.DTOs.Movimientos;
+﻿using BankSystem.Application.DTOs;
+using BankSystem.Application.DTOs.Movimientos;
 
 namespace BankSystem.Application.Interfaces.Services
 {
@@ -7,6 +8,6 @@ namespace BankSystem.Application.Interfaces.Services
         Task AddMovimientoAsync(CrearMovimientoDTO movimientoDto);
         Task<IList<MovimientosDTO>> GetAllAsync();
         Task<IList<MovimientosDTO>> GetAllByCuentaIdAsync(int cuentaId);
-        Task<IList<MovimientosDTO>> GetByRangoFechaAsync(int cuentaId, DateTime limiteInferior, DateTime limiteSuperior);
+        Task<IList<MovimientosDTO>> GetByRangoFechaAsync(FiltroReporteDTO filtro);
     }
 }

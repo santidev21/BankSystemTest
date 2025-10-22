@@ -5,8 +5,8 @@
         <button class="button primary" (click)="agregarNuevoCliente()">Nuevo cliente</button>
     </div>
     <div class="info-container">
-         <ng-container *ngIf="false; else tablaClientes">
-            <span class="warning-text">No hay clientes registrados. Por favor agregue uno nuevo.</span>    
+         <ng-container *ngIf="listaClientesFiltrada.length == 0; else tablaClientes">
+            <span class="warning-text">No se encontraron clientes.</span>    
         </ng-container>
         <ng-template #tablaClientes>
             <table>

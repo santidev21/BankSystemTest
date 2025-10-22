@@ -3,10 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ReportesComponent } from './reportes.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: ReportesComponent,
-  }
+  { path: '', component: ReportesComponent},
+  { path: '**', redirectTo: ''}
 ];
 
 @NgModule({

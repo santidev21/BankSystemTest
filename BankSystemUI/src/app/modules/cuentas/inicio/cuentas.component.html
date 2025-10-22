@@ -5,8 +5,8 @@
         <button class="button primary" (click)="agregarNuevaCuenta()">Nueva Cuenta</button>
     </div>
     <div class="info-container">
-         <ng-container *ngIf="false; else tablaCuentas">
-            <span class="warning-text">No hay cuentas registaradas. Por favor agregue una nuevo.</span>    
+         <ng-container *ngIf="listaCuentasFiltrada.length == 0; else tablaCuentas">
+            <span class="warning-text">No se encontraron cuentas.</span>    
         </ng-container>
         <ng-template #tablaCuentas>
             <table>

@@ -1,4 +1,5 @@
-﻿using BankSystem.Application.DTOs.Movimientos;
+﻿using BankSystem.Application.DTOs;
+using BankSystem.Application.DTOs.Movimientos;
 using BankSystem.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,10 +38,10 @@ namespace BankSystem.API.Controllers
             return Ok(movimientos);
         }
 
-        [HttpGet("cuenta/{id}/rango")]
-        public async Task<ActionResult<IList<MovimientosDTO>>> GetByRangoFechas(int id, DateTime limiteInferior, DateTime limiteSuperior)
+        [HttpPost("reporte")]
+        public async Task<ActionResult<IList<MovimientosDTO>>> GetByRangoFechas([FromBody] FiltroReporteDTO filtro)
         {
-            var movimientos = await _movimientosService.GetByRangoFechaAsync(id, limiteInferior, limiteSuperior);
+            var movimientos = await _movimientosService.GetByRangoFechaAsync(filtro);
             if (movimientos == null) return NotFound();
             return Ok(movimientos);
         }

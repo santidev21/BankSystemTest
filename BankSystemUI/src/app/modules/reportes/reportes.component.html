@@ -1,1 +1,78 @@
-<p>reportes works!</p>
+<div class="container">
+    <h2>Reporte de movimientos</h2>
+    <div class="filter-bar">
+        <form [formGroup]="filtroForm" (ngSubmit)="onSubmit()">
+            <div class="form-container">
+            
+                <div class="filtro-form-container">
+                    <label for="cuentaId">Cuenta: (Opcional)</label>
+                    <select id="cuentaId" formControlName="cuentaId">
+                        <option *ngFor="let c of listaCuentas" [value]="c.cuentaId">{{ c.numeroCuenta }}</option>
+                    </select>
+                </div>
+
+                <div class="filtro-form-container">
+                    <label for="initialDate">Fecha Inicial:</label>
+                    <input type="date" formControlName="initialDate" required/>
+                </div>
+
+                <div class="filtro-form-container">
+                    <label for="finalDate">Fecha Final:</label>
+                    <input type="date" formControlName="finalDate" required/>
+                </div>
+
+                <button class="button primary" type="submit">Buscar</button>
+                <button class="button primary export-button" type="button" (click)="exportarMovimientos()">
+                    <p>Exportar</p> 
+                    <img src="assets/icons/pdf.svg"/>
+                </button>
+                
+            </div>
+           
+
+            <span class="warning-text" [class.visible]="filtroForm.errors?.['rangoInvalido']">
+                La fecha inicial no puede ser mayor que la final
+            </span>
+            <span class="warning-text" [class.visible]="(filtroForm.get('initialDate')?.hasError('required') && filtroForm.get('initialDate')?.touched) ||
+            filtroForm.get('finalDate')?.hasError('required') && filtroForm.get('finalDate')?.touched">
+                La fechas son obligatorias.
+            </span>
+
+
+        </form>
+
+    </div>
+    <div class="info-container">
+         <ng-container *ngIf="listamovimientos.length == 0; else tablamovimientos">
+            <span class="warning-text">No se encontraron moviemientos con ese filtro.</span>    
+        </ng-container>
+        <ng-template #tablamovimientos>
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>Fecha</th>
+                    <th>Nombre</th>
+                    <th>Tipo</th>
+                    <th>No Cuenta</th>
+                    <th>Saldo Inicial</th>
+                    <th>Tipo Movimiento</th>
+                    <th>Valor</th>
+                    <th>Saldo Disponible</th>
+                    <th>Estado</th>
+                </tr>
+                <tr *ngFor="let movimiento of listamovimientos;">
+                    <td>{{movimiento.movimientoId}}.</td>
+                    <td>{{ movimiento.fecha | date:'yyyy-MM-dd' }}</td>
+                    <td>{{movimiento.nombreCliente}}</td>
+                    <td>{{movimiento.tipoCuenta}}</td>
+                    <td>{{movimiento.numeroCuenta}}</td>
+                    <td>{{movimiento.saldoInicial}}</td>
+                    <td>{{movimiento.tipoMovimiento}}</td>
+                    <td>{{movimiento.movimiento}}</td>
+                    <td>{{movimiento.saldoDisponible}}</td>
+                    <td>{{movimiento.estado}}</td>
+                </tr>
+            </table> 
+        </ng-template>
+    </div>
+</div>

@@ -5,8 +5,8 @@
         <button class="button primary" (click)="agregarNuevomovimiento()">Nuevo movimiento</button>
     </div>
     <div class="info-container">
-         <ng-container *ngIf="false; else tablamovimientos">
-            <span class="warning-text">No hay movimientos registrados. Por favor agregue uno nuevo.</span>    
+         <ng-container *ngIf="listaMovimientosFiltrada.length == 0; else tablamovimientos">
+            <span class="warning-text">No se encontraron movimientos.</span>    
         </ng-container>
         <ng-template #tablamovimientos>
             <table>
@@ -29,7 +29,7 @@
                     <td>{{movimiento.tipoCuenta}}</td>
                     <td>{{movimiento.numeroCuenta}}</td>
                     <td>{{movimiento.saldoInicial}}</td>
-                    <td>Debitoxd</td>
+                    <td>{{movimiento.tipoMovimiento}}</td>
                     <td>{{movimiento.movimiento}}</td>
                     <td>{{movimiento.saldoDisponible}}</td>
                     <td>{{movimiento.estado}}</td>

@@ -11,6 +11,7 @@
         public string TipoCuenta { get; set; }
         public int SaldoInicial { get; set; }
         public bool Estado { get; set; }
+        public string TipoMovimiento { get; set; }
         public int Movimiento { get; set; }
         public int SaldoDisponible { get; set; }
     }

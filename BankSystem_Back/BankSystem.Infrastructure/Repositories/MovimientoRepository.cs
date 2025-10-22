@@ -35,15 +35,19 @@ namespace BankSystem.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IList<Movimiento>> GetByRangoFechaAsync(int cuentaId, DateTime limiteInferior, DateTime limiteSuperior)
+        public async Task<IList<Movimiento>> GetByRangoFechaAsync(DateTime limiteInferior, DateTime limiteSuperior, int? cuentaId = null)
         {
-            return await _context.Movimientos
-                .Where(mov => mov.CuentaId == cuentaId &&
-                    mov.Fecha >= limiteInferior.Date &&
+            var movimientos = await _context.Movimientos
+                .Where(mov => mov.Fecha >= limiteInferior.Date &&
                     mov.Fecha <= limiteSuperior.AddDays(1).Date)
                 .Include(mov => mov.Cuenta)
                 .ThenInclude(cta => cta.Cliente)
                 .ToListAsync();
+
+            if (cuentaId != null)
+                movimientos = movimientos.Where(mov => mov.CuentaId == cuentaId).ToList();
+
+            return movimientos;
         }
     }
 }

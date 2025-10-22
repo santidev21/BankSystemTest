@@ -1,4 +1,5 @@
-﻿using BankSystem.Application.DTOs.Movimientos;
+﻿using BankSystem.Application.DTOs;
+using BankSystem.Application.DTOs.Movimientos;
 using BankSystem.Application.Interfaces.Repositories;
 using BankSystem.Application.Interfaces.Services;
 using BankSystem.Domain.Constants;
@@ -32,7 +33,7 @@ namespace BankSystem.Application.Services
                 if (movimientoDto.Valor > balanceCuenta)
                     throw new NotImplementedException();
 
-                var movimientosDia = await _movimientoRepository.GetByRangoFechaAsync(movimientoDto.CuentaId, DateTime.UtcNow.Date, DateTime.UtcNow.Date.AddDays(1));
+                var movimientosDia = await _movimientoRepository.GetByRangoFechaAsync(DateTime.UtcNow.Date, DateTime.UtcNow.Date.AddDays(1), movimientoDto.CuentaId);
                 var debitosDia = movimientosDia.Where(mov => mov.Tipo == CuentasRules.debito).Sum(mov => mov.Valor);
                 if (debitosDia > CuentasRules.limiteDiario)
                     throw new NotImplementedException();
@@ -67,13 +68,13 @@ namespace BankSystem.Application.Services
             return MapMovimientosToMovimientosDTO(movimientos);
         }
 
-        public async Task<IList<MovimientosDTO>> GetByRangoFechaAsync(int cuentaId, DateTime limiteInferior, DateTime limiteSuperior)
+        public async Task<IList<MovimientosDTO>> GetByRangoFechaAsync(FiltroReporteDTO filtro)
         {
-            var movimientos = await _movimientoRepository.GetByRangoFechaAsync(cuentaId, limiteInferior, limiteSuperior);
+            var movimientos = await _movimientoRepository.GetByRangoFechaAsync(filtro.LimiteInferior, filtro.LimiteSuperior, filtro.cuentaId);
             return MapMovimientosToMovimientosDTO(movimientos);            
         }
 
-        private IList<MovimientosDTO> MapMovimientosToMovimientosDTO(IList<Movimiento> movimientos)
+        public static IList<MovimientosDTO> MapMovimientosToMovimientosDTO(IList<Movimiento> movimientos)
         {
             return movimientos.Select(mov => new MovimientosDTO
             {
@@ -86,7 +87,8 @@ namespace BankSystem.Application.Services
                 SaldoInicial = mov.Cuenta.SaldoInicial,
                 Estado = mov.Cuenta.Estado,
                 Movimiento = mov.Valor,
-                SaldoDisponible = mov.Saldo
+                SaldoDisponible = mov.Saldo,
+                TipoMovimiento = mov.Tipo
             }).ToList();
         }
     }

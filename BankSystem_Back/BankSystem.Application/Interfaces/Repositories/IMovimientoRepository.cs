@@ -7,6 +7,6 @@ namespace BankSystem.Application.Interfaces.Repositories
         Task AddAsync(Movimiento movimiento);
         Task<IList<Movimiento>> GetAllAsync();
         Task<IList<Movimiento>> GetAllByCuentaIdAsync(int cuentaId);
-        Task<IList<Movimiento>> GetByRangoFechaAsync(int cuentaId, DateTime limiteInferior, DateTime limiteSuperior);
+        Task<IList<Movimiento>> GetByRangoFechaAsync(DateTime limiteInferior, DateTime limiteSuperior, int? cuentaId);
     }
 }

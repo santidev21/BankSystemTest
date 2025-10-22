@@ -13,6 +13,7 @@ export interface Movimiento{
     tipoCuenta: string;
     saldoInicial: number;
     estado: boolean;
+    tipoMovimiento: string;
     movimiento: number;
     saldoDisponible: number;
 }
