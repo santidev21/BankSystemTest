@@ -1,0 +1,21 @@
+services:
+  backend:
+    build:
+      context: ./BankSystem_Back
+      dockerfile: BankSystem.API/Dockerfile
+    container_name: backend
+    ports:
+      - "7114:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=host.docker.internal,1433;Database=BankSystemDb;User Id=sa;Password=sa123456;TrustServerCertificate=True
+
+  frontend:
+    build:
+      context: ./BankSystemUI
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
