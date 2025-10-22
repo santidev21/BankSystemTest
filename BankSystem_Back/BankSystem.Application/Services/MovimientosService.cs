@@ -4,6 +4,7 @@ using BankSystem.Application.Interfaces.Repositories;
 using BankSystem.Application.Interfaces.Services;
 using BankSystem.Domain.Constants;
 using BankSystem.Domain.Entities;
+using BankSystem.Infrastructure.Exceptions;
 
 namespace BankSystem.Application.Services
 {
@@ -22,7 +23,7 @@ namespace BankSystem.Application.Services
         {
             var cuenta = await _cuentaRepository.GetByIdAsync(movimientoDto.CuentaId);
             if (cuenta == null)
-                throw new NotImplementedException();
+                throw new KeyNotFoundException("Cuenta no encontrada.");
 
 
             var balanceCuenta = await _cuentaRepository.GetBalanceAsync(movimientoDto.CuentaId);
@@ -30,13 +31,16 @@ namespace BankSystem.Application.Services
 
             if (movimientoDto.Tipo == CuentasRules.debito)
             {
+                if (movimientoDto.Valor >= CuentasRules.limiteDiario)
+                    throw new BankSystemException("El valor a debitar supera el limite diario.");
+
                 if (movimientoDto.Valor > balanceCuenta)
-                    throw new NotImplementedException();
+                    throw new BankSystemException("El saldo de la cuenta es menor al valor a debitar.");
 
                 var movimientosDia = await _movimientoRepository.GetByRangoFechaAsync(DateTime.UtcNow.Date, DateTime.UtcNow.Date.AddDays(1), movimientoDto.CuentaId);
                 var debitosDia = movimientosDia.Where(mov => mov.Tipo == CuentasRules.debito).Sum(mov => mov.Valor);
                 if (debitosDia > CuentasRules.limiteDiario)
-                    throw new NotImplementedException();
+                    throw new BankSystemException("La cuenta a superado el limite diario.");
                 nuevoSaldo = balanceCuenta - movimientoDto.Valor;
             }
             else

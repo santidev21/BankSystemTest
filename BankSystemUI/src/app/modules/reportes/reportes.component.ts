@@ -57,15 +57,8 @@ export class ReportesComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.filtroForm.invalid) {
-      this.filtroForm.markAllAsTouched();
-      return;
-    }
-    const filtro : filtroReporte = {
-      cuentaId: this.filtroForm.value.cuentaId,
-      limiteInferior: new Date(this.filtroForm.value.initialDate).toISOString(),
-      limiteSuperior: new Date(this.filtroForm.value.finalDate).toISOString()
-    };
+    const filtro = this.getFiltro();
+    if (!filtro) return;
     
     this.movimientosService.filtrarMovimientos(filtro).subscribe(resp =>{
       this.listamovimientos = resp;
@@ -73,15 +66,8 @@ export class ReportesComponent implements OnInit {
   }
 
   exportarMovimientos(){
-    if (this.filtroForm.invalid) {
-      this.filtroForm.markAllAsTouched();
-      return;
-    }
-    const filtro : filtroReporte = {
-      cuentaId: this.filtroForm.value.cuentaId,
-      limiteInferior: new Date(this.filtroForm.value.initialDate).toISOString(),
-      limiteSuperior: new Date(this.filtroForm.value.finalDate).toISOString()
-    };
+    const filtro = this.getFiltro();
+    if (!filtro) return;
     
     this.reportesService.exportarMovimientos(filtro).subscribe(resp =>{
         const url = window.URL.createObjectURL(resp);
@@ -92,5 +78,18 @@ export class ReportesComponent implements OnInit {
         window.URL.revokeObjectURL(url);
 
     });
+  }
+
+  private getFiltro(): filtroReporte | null {
+    if (this.filtroForm.invalid) {
+      this.filtroForm.markAllAsTouched();
+      return null;
+    }
+
+    return {
+      cuentaId: this.filtroForm.value.cuentaId,
+      limiteInferior: new Date(this.filtroForm.value.initialDate).toISOString(),
+      limiteSuperior: new Date(this.filtroForm.value.finalDate).toISOString()
+    };
   }
 }

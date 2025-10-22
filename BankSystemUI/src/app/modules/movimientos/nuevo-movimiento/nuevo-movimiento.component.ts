@@ -37,7 +37,13 @@ export class NuevoMovimientoComponent implements OnInit {
   onSubmit() : void{
     if (this.movimientosForm.valid) {
         let movimientoNuevo = this.movimientosForm.value;
-        this.movimientosService.crearMovimiento(movimientoNuevo).subscribe(resp => {this.redirect()});
+        this.movimientosService.crearMovimiento(movimientoNuevo).subscribe({
+            next: (res) => this.redirect(),
+            error: (err) => {
+              const msg = err?.error?.message || 'Unexpected error';
+              alert(msg);
+            }
+        });
     } else {
       this.movimientosForm.markAllAsTouched();
       return;
